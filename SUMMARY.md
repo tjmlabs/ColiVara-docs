@@ -5,7 +5,8 @@
 ## Getting Started
 
 * [Quickstart](getting-started/quickstart.md)
-* [Publish your docs](getting-started/publish-your-docs.md)
+* [About](getting-started/publish-your-docs.md)
+* [Self-hosting](getting-started/publish-your-docs-1.md)
 
 ## Basics
 

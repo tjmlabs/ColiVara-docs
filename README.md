@@ -20,7 +20,7 @@ layout:
 
 # Welcome
 
-Welcome to the ColiVara documentation! Here you'll get an overview of all the amazing features ColiVara offers to help you build a state of the art retrieval system.
+Welcome to the ColiVara documentation! Here you'll get an overview of all the features ColiVara offers to help you build a state of the art retrieval system.
 
 Colivara is a suite of services that allows you to store, search, and retrieve documents based on their _**visual**_ embeddings.
 

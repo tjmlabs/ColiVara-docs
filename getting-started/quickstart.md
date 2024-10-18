@@ -4,24 +4,52 @@ icon: bullseye-arrow
 
 # Quickstart
 
-<figure><img src="https://gitbookio.github.io/onboarding-template-images/quickstart-hero.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/Screenshot 2024-10-18 at 3.15.09 PM.png" alt="" width="188"><figcaption></figcaption></figure>
 
-Beautiful documentation starts with the content you create — and GitBook makes it easy to get started with any pre-existing content.
+ColiVara is an web API that abstracts all the difficult parts about visual RAG. It embeds and saves documents, and then returns the highest matching pages when a user makes a query.
 
 {% hint style="info" %}
-Want to learn about writing content from scratch? Head to the [Basics](https://github.com/GitbookIO/onboarding-template/blob/main/getting-started/broken-reference/README.md) section to learn more.
+We use the Python SDK in this quickstart, but since ColiVara is an API, you can use any language by making standard API calls.
 {% endhint %}
 
-### Import
+### API Keys
 
-GitBook supports importing content from many popular writing tools and formats. If your content already exists, you can upload a file or group of files to be imported.
+Get an API Key from the [ColiVara Website](https://colivara.com) or via self-hosting.&#x20;
 
-<div data-full-width="false">
+### Install the Python SDK
 
-<figure><img src="https://gitbookio.github.io/onboarding-template-images/quickstart-import.png" alt=""><figcaption></figcaption></figure>
+```bash
+pip install colivara-py
+```
 
-</div>
+### Index a document
 
-### Sync a repository
+Colivara accepts a file url, or base64 encoded file, or a file path. We support over 100 file formats including PDF, DOCX, PPTX, and more. We will also automatically take a screenshot of URLs (webpages) and index them.
 
-GitBook also allows you to set up a bi-directional sync with an existing repository on GitHub or GitLab. Setting up Git Sync allows you and your team to write content in GitBook or in code, and never have to worry about your content becoming out of sync.
+```python
+import os
+from colivara_py import ColiVara
+
+rag_client = ColiVara(
+    # this is the default and can be omitted
+    api_key=os.environ.get("COLIVARA_API_KEY"),
+    # this is the default and can be omitted
+    base_url="https://api.colivara.com"
+)
+
+# Upload a document to the default collection
+document = rag_client.upsert_document(
+    name="attention is all you need",
+    url="https://arxiv.org/abs/1706.03762",
+    metadata={"published_year": "2017"}
+)
+```
+
+### Search
+
+You can filter by collection name, collection metadata, and document metadata. You can also specify the number of results you want.
+
+```python
+results = rag_client.search(query="What is the role of self-attention in transformers?")
+print(results) # top 3 pages with the most relevant information
+```
