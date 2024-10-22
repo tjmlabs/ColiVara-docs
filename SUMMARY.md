@@ -8,11 +8,11 @@
 * [About](getting-started/publish-your-docs.md)
 * [Self-hosting](getting-started/publish-your-docs-1.md)
 
-## Basics
+## Guide
 
-* [Editor](basics/editor.md)
-* [Markdown](basics/markdown.md)
-* [Images & media](basics/images-and-media.md)
-* [Interactive blocks](basics/interactive-blocks.md)
-* [OpenAPI](basics/openapi.md)
-* [Integrations](basics/integrations.md)
+* [Retrieval Augmented Generation (RAG)](guide/editor.md)
+* [Data Extraction](guide/markdown.md)
+* [Advanced filtering](guide/images-and-media.md)
+* [OpenAPI](guide/openapi.md)
+* [Python SDK](guide/interactive-blocks.md)
+* [Integrations](guide/integrations.md)
