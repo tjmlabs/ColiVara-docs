@@ -13,6 +13,6 @@
 * [Retrieval Augmented Generation (RAG)](guide/editor.md)
 * [Data Extraction](guide/markdown.md)
 * [Advanced filtering](guide/images-and-media.md)
-* [OpenAPI](guide/openapi.md)
+* [API Reference](guide/openapi.md)
 * [Python SDK](guide/interactive-blocks.md)
 * [Integrations](guide/integrations.md)

@@ -34,8 +34,6 @@ Documents are visually rich structures that convey information through text, as 
 
 It is a web-first implementation of the [ColiPali paper](https://arxiv.org/abs/2407.01449) using ColQwen2 as the LLM model. It works exactly like RAG from the end-user standpoint - but using vision models instead of chunking and text-processing for documents.
 
-
-
 <details>
 
 <summary>Performance</summary>
@@ -46,4 +44,4 @@ Vision based retrieval achieves state of the art performance on both latency and
 
 ### Jump right in
 
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Getting Started</strong></td><td>Create your first RAG pipeline</td><td></td><td></td><td><a href="getting-started/quickstart.md">quickstart.md</a></td></tr><tr><td><strong>Basics</strong></td><td>Learn the basics of ColiVara</td><td></td><td></td><td><a href="broken-reference">Broken link</a></td></tr><tr><td><strong>Advanced Usage</strong></td><td>Unleash the first </td><td></td><td></td><td><a href="getting-started/publish-your-docs.md">publish-your-docs.md</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th></th><th></th><th data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden></th><th data-hidden data-type="content-ref"></th></tr></thead><tbody><tr><td><a href="getting-started/quickstart.md"><strong>Getting Started</strong></a></td><td>Create your first RAG pipeline with 2 lines of code</td><td></td><td></td><td></td><td></td><td></td><td><a href="getting-started/quickstart.md">quickstart.md</a></td></tr><tr><td><a href="broken-reference"><strong>Guides</strong></a></td><td>Learn all what ColiVara have to offer</td><td></td><td></td><td></td><td></td><td></td><td><a href="broken-reference">Broken link</a></td></tr><tr><td><a href="guide/openapi.md"><strong>API Reference</strong></a></td><td>Try the API live</td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table>
