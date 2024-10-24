@@ -6,47 +6,80 @@ icon: pen-to-square
 
 The common problem ColiVara solves is RAG over visually rich documents where text extraction pipelines fail or presents incomplete data. For example, heavy tabular data with many charts such as policies for a medical facility.&#x20;
 
-You can find the complete code for a complex demo below. This guide is a simplified version of this demo that focuses on the retrieval portion.
+You can find the complete code for this demo below.&#x20;
 
-{% embed url="https://github.com/tjmlabs/colpali-demo" %}
+{% embed url="https://github.com/tjmlabs/ColiVara-docs/blob/main/cookbook/RAG.ipynb" %}
+
+
 
 ### Prepare your documents
 
 The first step in building a RAG pipeline is to prepare your documents. That could be a directory on your local computer, a S3 bucket, a google drive. Anything you can think of will work with Colivara. For the purposes of this guide - we will use a local directory with some documents in them.
 
 ```bash
-mkdir colivara-simple-demo
-cd colivara-simple-demo
-mkdir docs
+!pip install requests
 ```
 
 Then download the documents from Github. For the purposes of this demo, we will download the smallest 2 files. But, feel free to try with your own documents or all the documents in our demo repository.
 
-```bash
-curl -L -o docs/Work-From-Home-Guidance.pdf https://github.com/tjmlabs/colivara-demo/raw/main/docs/Work-From-Home%20Guidance.pdf
-curl -L -o docs/StaffVendorPolicy-Jan2019.pdf https://github.com/tjmlabs/colivara-demo/raw/main/docs/StaffVendorPolicy-Jan2019.pdf
+```python
+import requests
+import os
+
+def download_file(url, local_filename):
+    # Send a GET request to the URL
+    response = requests.get(url)
+    
+    # Check if the request was successful
+    if response.status_code == 200:
+        # Ensure the 'docs' directory exists
+        os.makedirs('docs', exist_ok=True)
+        
+        # Write the content to a local file
+        with open(local_filename, 'wb') as f:
+            f.write(response.content)
+        print(f"Successfully downloaded: {local_filename}")
+    else:
+        print(f"Failed to download: {url}")
+
+# URLs and local filenames
+files = [
+    {
+        "url": "https://github.com/tjmlabs/colivara-demo/raw/main/docs/Work-From-Home%20Guidance.pdf",
+        "filename": "docs/Work-From-Home-Guidance.pdf"
+    },
+    {
+        "url": "https://github.com/tjmlabs/colivara-demo/raw/main/docs/StaffVendorPolicy-Jan2019.pdf",
+        "filename": "docs/StaffVendorPolicy-Jan2019.pdf"
+    }
+]
+
+# Download each file
+for file in files:
+    download_file(file["url"], file["filename"])
 ```
+
+
 
 ### Prepare your environment
 
-Next, we will prepare our Python environment and install the Colivara Python SDK&#x20;
+Next, we will install the Colivara Python SDK&#x20;
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install colivara-py
-touch rag.py
+!pip install colivara_py
 ```
+
+
 
 ### Sync your documents
 
-In `rag.py`  - we want a function that allows us to sync our documents to the Colivara server. So, we can just call this as our documents change or updated. Colivara logic automatically updates or inserts new documents depending on what changed.&#x20;
+We want to sync our documents to the Colivara server. So, we can just call this as our documents change or updated. Colivara logic automatically updates or inserts new documents depending on what changed.
 
 ```python
-from colivara import Colivara
+from colivara_py import Colivara
 from pathlib import Path
 import base64
-from time import sleep
+
 
 # set base_url and api_key
 rag_client = Colivara(
@@ -63,7 +96,9 @@ def sync_documents():
             file_content = f.read()
             encoded_content = base64.b64encode(file_content).decode('utf-8')
             rag_client.upsert_document(name=file.name, document_base64=encoded_content, collection_name="demo collection", wait=True)
-            sleep(0.5)
+            print(f"Upserted: {file.name}")
+
+sync_documents()
         
 ```
 
@@ -71,21 +106,20 @@ def sync_documents():
 
 Next - we we want to to transform a user messages or questions into an appropriate RAG question. In retrieval augmented generation - user and AI take turns in a conversation. In each turn, we want to get a factual context - that the AI can use in providing the answer.
 
-We will need an LLM to help us with this transformation. For this guide, we will use `gpt-4o` but lighter models are also effective.&#x20;
+We will need an LLM to help us with this transformation. For this guide, we will use gpt-4o but lighter models are also effective.
 
 ```bash
-pip install openai
+!pip install openai
 ```
 
 Here is the code for the transformation.
 
-```python
-#rag.py
+```
 from openai import OpenAI
 
-llm_client = OpenAI(api_key="your-openai-api-key")
+llm_client = OpenAI(api_key="your-api-key")
 
-def transform_query(messages=[{"role": "user", "content": "What is the work from home policy?"}]):
+def transform_query(messages):
     prompt = """ 
     You are given a conversation between a user and an assistant. We need to transform the last message from the user into a question appropriate for a RAG pipeline.
     Given the nature and flow of conversation. 
@@ -140,15 +174,18 @@ def transform_query(messages=[{"role": "user", "content": "What is the work from
     query = response.choices[0].message.content
     return query
 
+
+messages = [{"role": "user", "content": "What is the work from home policy?"}]
+transform_query(messages)
 ```
+
+
 
 ### Search
 
 Finally, with our document and query prepared - we are ready to run our RAG pipeline with ColiVara.
 
 ```python
-#rag.py
-
 def run_rag_pipeline(query):
     # clean the query that came from the LLM
     if "not applicable" in query.lower():
@@ -197,16 +234,35 @@ def run_rag_pipeline(query):
             }
         )
     return context
+
+query = 'RAG Query: What is the work from home policy?'
+
+context = run_rag_pipeline(query)
 ```
+
+Let's peek what our context looks like:
+
+<div>
+
+<figure><img src="../.gitbook/assets/image_1.png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/image_3.png" alt=""><figcaption></figcaption></figure>
+
+ 
+
+<figure><img src="../.gitbook/assets/image_2.png" alt=""><figcaption></figcaption></figure>
+
+</div>
 
 ### Answer
 
 With your context in hand - now you pass this to an LLM with multi-modal/vision capabilities and get a factually grounded answer.
 
 ```python
-# rag.py
 def draft_response(messages):
-    query = transform_query(messages)
+    query = transform_query(messages) 
     context = run_rag_pipeline(query)
     content = [
                 {
@@ -241,42 +297,31 @@ def draft_response(messages):
     answer = response.choices[0].message.content
     return answer
 
+
+messages = [
+    {"role": "user", "content": "Can I work from home on Fridays?"}
+]
+answer = draft_response(messages)
+
+print(answer)
+
+"""
+This what we will send to the RAG pipeline: What is the policy on working from home on Fridays?
+Based on the documents provided, the policy on working from home at Mount Sinai is as follows:
+
+1. **Eligibility and Requirements**: Remote work arrangements can be made available to employees in appropriate positions as determined by Mount Sinai. These arrangements require departmental approval and are subject to periodic review.
+
+2. **Days of Remote Work**: The specific days for remote work, such as Fridays, would be set in the Remote Work Schedule and agreed upon with the manager, as there is a blank section to be filled regarding the days of the week.
+
+3. **Compliance and Reporting**: Employees are required to comply with existing policies and notify their manager when they are working remotely.
+
+4. **Frequency**: Employees engaged in full-time remote work must work at least one scheduled day at a Mount Sinai location in New York State annually.
+
+5. **Approval and Review**: Remote work involving supervisory roles, such as Principal Investigators, requires approval from the Dean’s office.
+
+There is no specific mention of Fridays, implying that any remote work schedule, including Fridays, needs to be established and agreed upon with management.
+"""
+
 ```
 
-And with that - your RAG pipeline is complete. You sync your documents whenever you have an update. And&#x20;
-
-### Example usage&#x20;
-
-To see it in action - we will accept a user question via the terminal and print the response.&#x20;
-
-```bash
-touch main.py
-```
-
-In `main.py` - we will do a simple CLI program.
-
-```python
-import argparse
-from .rag import sync_documents, draft_response
-
-def main():
-    parser = argparse.ArgumentParser(description="Process a query with optional sync flag.")
-    parser.add_argument('query', type=str, help='The query to process')
-    parser.add_argument('--sync', action='store_true', help='Optional sync flag')
-    
-    args = parser.parse_args()
-
-    if args.sync:
-        # syncs the documents first
-        sync_documents()
-    response = draft_response([args.query])
-    print(response)
-
-if __name__ == "__main__":
-    main()
-```
-
-
-
-
-
+And with that - your RAG pipeline is complete.
