@@ -5,14 +5,14 @@
 ## Getting Started
 
 * [Quickstart](getting-started/quickstart.md)
-* [About](getting-started/publish-your-docs.md)
-* [Self-hosting](getting-started/publish-your-docs-1.md)
+* [About](getting-started/about.md)
+* [Self-hosting](getting-started/self-hosting.md)
 
 ## Guide
 
-* [Retrieval Augmented Generation (RAG)](guide/editor.md)
+* [Retrieval Augmented Generation (RAG)](guide/rag.md)
 * [Data Extraction](guide/markdown.md)
-* [Advanced filtering](guide/images-and-media.md)
-* [API Reference](guide/openapi.md)
-* [Python SDK](guide/interactive-blocks.md)
+* [Advanced filtering](guide/filtering.md)
+* [API Reference](guide/api-reference.md)
+* [Python SDK](guide/python-sdk.md)
 * [Integrations](guide/integrations.md)
