@@ -14,7 +14,7 @@ You can find the complete code for this demo below.&#x20;
 
 ### Prepare your documents
 
-The first step in building a RAG pipeline is to prepare your documents. That could be a directory on your local computer, a S3 bucket, a google drive. Anything you can think of will work with Colivara. For the purposes of this guide - we will use a local directory with some documents in them.
+The first step in building a RAG pipeline is to prepare your documents. That could be a directory on your local computer, a S3 bucket, a google drive. Anything you can think of will work with ColiVara. For the purposes of this guide - we will use a local directory with some documents in them.
 
 ```bash
 !pip install requests
@@ -63,7 +63,7 @@ for file in files:
 
 ### Prepare your environment
 
-Next, we will install the Colivara Python SDK&#x20;
+Next, we will install the ColiVara Python SDK&#x20;
 
 ```bash
 !pip install colivara_py
@@ -73,16 +73,16 @@ Next, we will install the Colivara Python SDK&#x20;
 
 ### Sync your documents
 
-We want to sync our documents to the Colivara server. So, we can just call this as our documents change or updated. Colivara logic automatically updates or inserts new documents depending on what changed.
+We want to sync our documents to the ColiVara server. So, we can just call this as our documents change or updated. ColiVara logic automatically updates or inserts new documents depending on what changed.
 
 ```python
-from colivara_py import Colivara
+from colivara_py import ColiVara
 from pathlib import Path
 import base64
 
 
 # set base_url and api_key
-rag_client = Colivara(
+rag_client = ColiVara(
         base_url="https://api.colivara.com", api_key="your-api-key"
       )
 
