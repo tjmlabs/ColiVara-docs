@@ -48,6 +48,10 @@ _From the ColiPali paper:_
 
 The ColiPali team has provided the following evals in their paper. We have run quick sanity checks on the API and the Embeddings Service and are getting similar results. We are working on own independent evals and will update this section with our results.
 
+Updates:
+
+* 11/6/2024: Our ArxivQ score is 86.6 - matching state of the art results in the vidore leaderboard.
+
 <figure><img src="../.gitbook/assets/colipali-evals.png" alt=""><figcaption></figcaption></figure>
 
 ### Components:
