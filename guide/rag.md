@@ -10,14 +10,53 @@ You can find the complete code for this demo below.&#x20;
 
 {% embed url="https://github.com/tjmlabs/ColiVara-docs/blob/main/cookbook/RAG.ipynb" %}
 
+## Overview
 
+#### Preparations
 
-### Prepare your documents
+You would need:&#x20;
 
-The first step in building a RAG pipeline is to prepare your documents. That could be a directory on your local computer, a S3 bucket, a google drive. Anything you can think of will work with ColiVara. For the purposes of this guide - we will use a local directory with some documents in them.
+* A **ColiVara API key**&#x20;
+* An **LLM API key** of your choice&#x20;
+* Appropriate documents for RAG queries
+
+#### From a high-level viewpoint, the process goes as follow:&#x20;
+
+1. Prepare your environment&#x20;
+2. Prepare your documents
+3. Sync (upload) documents to ColiVara server
+4. Transform your search query&#x20;
+5. Search processed document for relevant embeddings
+6. Generate a factual, grounded response&#x20;
+
+### 1. Prepare your environment
+
+First, install the ColiVara Python SDK. If using Jupyter Notebook:
+
+```bash
+!pip install colivara_py
+```
+
+If using the command shell:
+
+```bash
+pip install colivara_py
+```
+
+### 2. Prepare your documents
+
+This is the start of our RAG pipeline. We start by preparing the documents. That could be a directory on your local computer, a S3 bucket, a google drive. Anything you can think of will work with ColiVara. For the purposes of this guide - we will use a local directory with some documents in them.
+
+If using Jupyter Notebook:
 
 ```bash
 !pip install requests
+```
+
+If using the command shell:
+
+```bash
+pip install requests
 ```
 
 Then download the documents from Github. For the purposes of this demo, we will download the smallest 2 files. But, feel free to try with your own documents or all the documents in our demo repository.
@@ -61,19 +100,9 @@ for file in files:
 
 
 
-### Prepare your environment
+### 3. Sync your documents
 
-Next, we will install the ColiVara Python SDK&#x20;
-
-```bash
-!pip install colivara_py
-```
-
-
-
-### Sync your documents
-
-We want to sync our documents to the ColiVara server. So, we can just call this as our documents change or updated. ColiVara logic automatically updates or inserts new documents depending on what changed.
+We want to sync our documents to the ColiVara server. So, we can just call this as our documents change or updated. ColiVara logic automatically updates or inserts new documents depending on what changed. The `wait=True` parameter ensures this process is synchronous.&#x20;
 
 ```python
 from colivara_py import ColiVara
@@ -95,26 +124,39 @@ def sync_documents():
         with open(file, 'rb') as f:
             file_content = f.read()
             encoded_content = base64.b64encode(file_content).decode('utf-8')
-            rag_client.upsert_document(name=file.name, document_base64=encoded_content, collection_name="demo collection", wait=True)
+            rag_client.upsert_document(
+                name=file.name, 
+                document_base64=encoded_content, 
+                collection_name="demo collection", 
+                wait=True
+            )
             print(f"Upserted: {file.name}")
 
 sync_documents()
         
 ```
 
-### Transform your query
+### 4. Transform your query
 
-Next - we we want to to transform a user messages or questions into an appropriate RAG question. In retrieval augmented generation - user and AI take turns in a conversation. In each turn, we want to get a factual context - that the AI can use in providing the answer.
+Next - we we want to to transform a user messages or questions into an appropriate _RAG question_. In retrieval augmented generation - user and AI take turns in a conversation. In each turn, we want to get a factual context - that the AI can use in providing the answer.
 
 We will need an LLM to help us with this transformation. For this guide, we will use gpt-4o but lighter models are also effective.
+
+If using Jupyter Notebook:
 
 ```bash
 !pip install openai
 ```
 
+If using the command shell:
+
+```bash
+pip install openai
+```
+
 Here is the code for the transformation.
 
-```
+```python
 from openai import OpenAI
 
 llm_client = OpenAI(api_key="your-api-key")
@@ -181,7 +223,7 @@ transform_query(messages)
 
 
 
-### Search
+### 5. Search for context using the RAG pipeline
 
 Finally, with our document and query prepared - we are ready to run our RAG pipeline with ColiVara.
 
@@ -256,7 +298,7 @@ Let's peek what our context looks like:
 
 </div>
 
-### Answer
+### Generate answer
 
 With your context in hand - now you pass this to an LLM with multi-modal/vision capabilities and get a factually grounded answer.
 
