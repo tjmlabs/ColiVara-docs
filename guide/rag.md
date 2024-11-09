@@ -10,17 +10,23 @@ You can find the complete code for this demo below.&#x20;
 
 {% embed url="https://github.com/tjmlabs/ColiVara-docs/blob/main/cookbook/RAG.ipynb" %}
 
+***
+
 ## Overview
 
-#### Preparations
+<details>
 
-You would need:&#x20;
+<summary>What you'd need</summary>
 
-* A **ColiVara API key**&#x20;
-* An **LLM API key** of your choice&#x20;
+* A _ColiVara API key_&#x20;
+* An _LLM API key_ of your choice&#x20;
 * Appropriate documents for RAG queries
 
-#### From a high-level viewpoint, the process goes as follow:&#x20;
+</details>
+
+<details>
+
+<summary>High-level steps overview</summary>
 
 1. Prepare your environment&#x20;
 2. Prepare your documents
@@ -28,6 +34,12 @@ You would need:&#x20;
 4. Transform your search query&#x20;
 5. Search processed document for relevant embeddings
 6. Generate a factual, grounded response&#x20;
+
+</details>
+
+
+
+***
 
 ### 1. Prepare your environment
 
@@ -42,6 +54,8 @@ If using the command shell:
 ```bash
 pip install colivara_py
 ```
+
+***
 
 ### 2. Prepare your documents
 
@@ -98,7 +112,7 @@ for file in files:
     download_file(file["url"], file["filename"])
 ```
 
-
+***
 
 ### 3. Sync your documents
 
@@ -135,6 +149,8 @@ def sync_documents():
 sync_documents()
         
 ```
+
+***
 
 ### 4. Transform your query
 
@@ -221,7 +237,7 @@ messages = [{"role": "user", "content": "What is the work from home policy?"}]
 transform_query(messages)
 ```
 
-
+***
 
 ### 5. Search for context using the RAG pipeline
 
@@ -298,7 +314,9 @@ Let's peek what our context looks like:
 
 </div>
 
-### Generate answer
+***
+
+### 6. Generate answer
 
 With your context in hand - now you pass this to an LLM with multi-modal/vision capabilities and get a factually grounded answer.
 

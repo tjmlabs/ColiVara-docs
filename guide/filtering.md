@@ -19,6 +19,8 @@ Advanced filters can be used on metadata from a  single document, or from the en
 
 This leads to _higher relevance_, as users get nuanced responses tailored to both broad and specific information requests.&#x20;
 
+***
+
 ## How to utilize query filter
 
 To use Advanced Filtering on your documents or collection, pass in a `query_filter` parameter to the `search` function call.&#x20;
@@ -38,6 +40,8 @@ search_results = rag_client.search(
     top_k=3
 )
 ```
+
+***
 
 ## Available Filters
 
@@ -109,7 +113,7 @@ search_results = rag_client.search(
   * Must not contain a `value` parameter
 * **Validation**:
   * `key` must be a string.
-  * `value` must be `None`.
+  * Must not contain a `value` parameter
 *   **Example Usage**:
 
     ```python
