@@ -5,7 +5,8 @@
 ## Getting Started
 
 * [Quickstart](getting-started/quickstart.md)
-* [About](getting-started/about.md)
+* [About](getting-started/about/README.md)
+  * [ColPali Model](getting-started/about/colpali-model.md)
 * [Self-hosting](getting-started/self-hosting.md)
 
 ## Guide

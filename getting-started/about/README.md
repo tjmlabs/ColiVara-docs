@@ -19,7 +19,7 @@ RAG (Retrieval Augmented Generation) is a powerful technique that allows us to e
 
 However, it is limited by the quality of the text extraction pipeline. With limited ability to extract visual cues and other non-textual information, RAG can be sub-optimal for documents that are visually rich.
 
-ColiVara uses vision models to generate embeddings for documents, allowing you to retrieve documents based on their visual content.
+ColiVara uses vision models to generate embeddings for documents, allowing you to retrieve documents based on their visual content. Read more about the [original ColPali Model here](https://app.gitbook.com/o/DHjMRQs4Vfjvi2m062WT/s/r0RGXIvkomMWAuxgus2N/\~/changes/18/getting-started/about/colpali-model)
 
 _From the ColiPali paper:_
 
@@ -27,7 +27,7 @@ _From the ColiPali paper:_
 
 [Learn More in the ColiPali Paper](https://arxiv.org/abs/2407.01449)
 
-<figure><img src="../.gitbook/assets/colipali-explainer.jpg" alt=""><figcaption><p><em>Credit:</em> <a href="https://x.com/helloiamleonie"><em>helloIamleonie on X</em></a></p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/colipali-explainer.jpg" alt=""><figcaption><p><em>Credit:</em> <a href="https://x.com/helloiamleonie"><em>helloIamleonie on X</em></a></p></figcaption></figure>
 
 ### Key Features
 
@@ -52,7 +52,7 @@ Updates:
 
 * 11/6/2024: Our ArxivQ score is 86.6 - matching state of the art results in the vidore leaderboard.
 
-<figure><img src="../.gitbook/assets/colipali-evals.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/colipali-evals.png" alt=""><figcaption></figcaption></figure>
 
 ### Components:
 
