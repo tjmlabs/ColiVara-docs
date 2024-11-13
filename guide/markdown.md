@@ -51,7 +51,7 @@ Install the `colivara-py` SDK library&#x20;
 
 If using Jupyter Notebook:
 
-```python
+```bash
 !pip install --no-cache-dir --upgrade colivara_py
 ```
 
@@ -62,8 +62,6 @@ pip install --no-cache-dir --upgrade colivara_py
 ```
 
 ### Step 2: Prepare Documents
-
-
 
 {% stepper %}
 {% step %}
@@ -139,10 +137,6 @@ def sync_documents():
 
 sync_documents()
 ```
-
-
-
-If using the a Python code editor (such as VSCode):
 {% endstep %}
 
 {% step %}
@@ -168,7 +162,7 @@ doc = client.get_document(document_name=document_name, collection_name="all", ex
 display_image_from_document(doc)
 ```
 
-If using a code editor such as VSCode:
+If using the a Python code editor (such as VSCode):
 
 ```python
 from IPython.display import Image
