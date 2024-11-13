@@ -63,7 +63,11 @@ pip install --no-cache-dir --upgrade colivara_py
 
 ### Step 2: Prepare Documents
 
-1. **Download Files**: Download the desired files to your machine. This code specifically will download them into your `docs/` folder
+
+
+{% stepper %}
+{% step %}
+**Download Files**: Download the desired files to your machine. This code specifically will download them into your `docs/` folder
 
 ```python
 import requests
@@ -96,10 +100,10 @@ files = [
 for file in files:
     download_file(file["url"], file["filename"])
 ```
+{% endstep %}
 
-
-
-2. **Upload Files to be procesed**:  Sync documents to the ColiVara server. The server will process these files to generate the necessary embeddings
+{% step %}
+**Upload Files to be procesed**:  Sync documents to the ColiVara server. The server will process these files to generate the necessary embeddings
 
 ```python
 from colivara_py import ColiVara
@@ -138,6 +142,12 @@ sync_documents()
 
 
 
+If using the a Python code editor (such as VSCode):
+{% endstep %}
+
+{% step %}
+**(Optional) Verify that documents have been processed by ColiVara**:  Documents have been convert into "screenshots" to generate embeddings
+
 If using Jupyter Notebook:
 
 ```python
@@ -158,7 +168,7 @@ doc = client.get_document(document_name=document_name, collection_name="all", ex
 display_image_from_document(doc)
 ```
 
-If using the a Python code editor (such as VSCode):
+If using a code editor such as VSCode:
 
 ```python
 from IPython.display import Image
@@ -183,10 +193,16 @@ doc = rag_client.get_document(
 
 display_image_from_document(doc)
 ```
+{% endstep %}
+{% endstepper %}
 
 ### Step 3: Extract data
 
-1. **Install the LLM of choice**. Here, we are using OpenAI's GPT model&#x20;
+
+
+{% stepper %}
+{% step %}
+**Install the LLM of choice**. Here, we are using OpenAI's GPT model&#x20;
 
 If using Jupyter Notebook:
 
@@ -199,10 +215,10 @@ If using the command shell:
 ```bash
 !pip install openai
 ```
+{% endstep %}
 
-
-
-2. **Extract the JSON data**
+{% step %}
+**Extract the JSON data**
 
 ```python
 import json
@@ -257,8 +273,10 @@ data_to_extract = {"year_issued": 2014, "month_issued": 3}
 data = extract_data(data_to_extract, doc)
 print(data)
 ```
+{% endstep %}
+{% endstepper %}
 
-The output data should be:&#x20;
+The result output data should be:&#x20;
 
 > ```json
 > {
@@ -266,4 +284,6 @@ The output data should be:&#x20;
 >     "month_issued": 3
 > }
 > ```
+
+
 
