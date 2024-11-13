@@ -6,7 +6,7 @@ icon: filters
 
 ## ColiVara offers different lookup methods to extract highly relevant data
 
-**ColiVara** combines the power of Colipali RAG model to retrieve admissible contextual information. An LLM of your choice can then be used to generate answers to your query as a structured data (JSON) format. Additionally, **ColiVara** offers built-in _lookup methods_ to improve your query.
+**ColiVara** combines the power of Colpali RAG model to retrieve admissible contextual information. An LLM of your choice can then be used to generate answers to your query as a structured data (JSON) format. Additionally, **ColiVara** offers built-in _lookup methods_ to improve your query.
 
 **Colivara** offers fine-grained control over data retrieval by implementing various **Query Filters**, which boosts precision in response generation by filtering by document's metadata (or collection's metadata)
 

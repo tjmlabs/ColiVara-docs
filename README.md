@@ -32,7 +32,7 @@ Documents are visually rich structures that convey information through text, as 
 
 </details>
 
-It is a web-first implementation of the [ColiPali paper](https://arxiv.org/abs/2407.01449) using ColQwen2 as the LLM model. It works exactly like RAG from the end-user standpoint - but using vision models instead of chunking and text-processing for documents.
+It is a web-first implementation of the [ColPali paper](https://arxiv.org/abs/2407.01449) using ColQwen2 as the LLM model. It works exactly like RAG from the end-user standpoint - but using vision models instead of chunking and text-processing for documents.
 
 <details>
 
