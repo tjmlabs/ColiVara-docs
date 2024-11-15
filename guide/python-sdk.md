@@ -68,6 +68,47 @@ results = client.search(
 
 <details>
 
+<summary><code>filter:</code> Retrieves documents or collections that match specific criteria based</summary>
+
+This allows you to apply flexible criteria to retrieve specific documents or collections. It supports advanced lookups like filtering by key presence or matching values. This method is useful for narrowing down results by metadata or other attributes.
+
+#### **Parameters**
+
+* `query_filter` (`Dict[str, Any]`): A dictionary specifying the filter criteria. The dictionary must contain:
+  * `on` (`str`): Specifies the target, either `"document"` or `"collection"`.
+  * `lookup` (`str`): The type of lookup.  Options include `"key_lookup"`, `"contains"`, `"contained_by"`, `"has_key"`, `"has_keys"`, and `"has_any_keys"`.  Read more about[ **Advance Filtering**](filtering.md) options here.&#x20;
+  * `key` (`str` or `List[str]`): The key(s) to filter by.
+  * `value` (`str, int, float, bool,` optional): The value(s) the key(s) should match (optional, depending on the filter option used).
+* `expand` (`str`, optional):&#x20;
+  * Currently, only `"pages"` is supported, which when used to filter documnets will include their pages in the returned value.&#x20;
+
+#### Returns
+
+* `List[DocumentOut]`, or `List[CollectionOut]`: A list of objects representing either documents or collections that match the filter criteria.
+
+#### Exceptions
+
+* `ValueError`: Raised if the filter is invalid.
+
+#### Example
+
+```python
+# Filters documents with category containing "AI" and 
+# includes document pages in the output data
+results = client.filter(
+    query_filter= {
+        "on": "document",
+        "key": "category",
+        "value": "AI",
+        "lookup": "contains" }, 
+    expand="pages",
+)
+```
+
+</details>
+
+<details>
+
 <summary><code>create_collection:</code>Creates a new collection </summary>
 
 &#x20;A collection is a storage within ColiVara server that your documents could be uploaded into for search purposes.  A collection is created with a specified name and optional metadata.
