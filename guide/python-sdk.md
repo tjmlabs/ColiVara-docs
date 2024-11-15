@@ -22,6 +22,52 @@ from colivara_py import ColiVara
 
 <details>
 
+<summary><code>upsert:</code> Adds or updates a document.</summary>
+
+This operation also supports adding metadata and providing document content through a URL, a base64-encoded string, or a file path.
+
+#### **Parameters**
+
+* `name` (`str`): The name of the document to be added or updated. This value cannot be null.
+* `metadata` (`Dict[str, Any]`, optional): Additional metadata for the document, such as tags or descriptive information.
+* `collection_name` (`str`, optional): The collection to add the document to. Defaults to `"default collection"`.
+* `document_url` (`str`, optional): The URL of the document if it’s available online.
+* `document_base64` (`str`, optional): The document content encoded in base64.
+* `document_path` (`str`, optional): The file path to the document, which will be read and converted to base64.
+* `wait` (`bool`, optional): If `True`, the method will be synchronous, which mean it will wait for the document processing to complete before returning, making . The default for this value is `False`, making asynchronous the default behavior .&#x20;
+
+#### Returns
+
+* `DocumentOut`: An object containing details of the created or updated document. This is returned for synchronous processing
+* `GenericMessage`: A message object returned if the document is accepted for processing .This is returned for asynchronous processing
+
+#### Exceptions
+
+* `ValueError`: Raised if no valid document source (URL, base64, or file path) is provided, or if there is an issue with the file path.
+* `FileNotFoundError`: Raised if the specified file path does not exist.
+* `PermissionError`: Raised if there is no read permission for the specified file.
+
+#### Example
+
+```python
+# This code synchronously adds/updates an "AI Research Paper" document  in the "AI_Papers" collection
+document = client.upsert_document(
+    name="AI_Research_Paper",
+    metadata={
+        "category": "Machine Learning",
+        "year": "2024",
+        "author": "Dr. AI Researcher"
+    },
+    collection_name="AI_Papers",
+    document_path="/path/to/AI_Research_Paper.pdf",
+    wait=True
+)
+```
+
+</details>
+
+<details>
+
 <summary><code>search:</code> Sends a query to the server.</summary>
 
 The query species which collection to search within, the number of top results to return, and optional filters to refine the search. It returns the most relevant results based on the given parameters.
@@ -70,7 +116,7 @@ results = client.search(
 
 <summary><code>filter:</code> Retrieves documents or collections that match specific criteria based</summary>
 
-This allows you to apply flexible criteria to retrieve specific documents or collections. It supports advanced lookups like filtering by key presence or matching values. This method is useful for narrowing down results by metadata or other attributes.
+This allows you to apply flexible criteria to retrieve specific documents or collections. It supports advanced lookups like filtering by key presence or matching values. This method is useful for narrowing for getting documents or collections without performing a semantic search. For example, give me all the documents that has a metaddata where value is "permissions", and key is "admin".
 
 #### **Parameters**
 
@@ -103,6 +149,43 @@ results = client.filter(
         "lookup": "contains" }, 
     expand="pages",
 )
+```
+
+</details>
+
+<details>
+
+<summary><code>create_embedding</code>: Generates embeddings on the processed images or text</summary>
+
+Embeddings are vector representations of the data. This method can generate vectors on either image data, or on a text query. After generation, these vectors comparison is processed to generate query result.
+
+#### Parameters
+
+* `input_data` (`str`, `List[str]`): A single string or a list of strings representing the data for which embeddings need to be generated. This could be text (for a query) or paths to image files.
+* `task` (`str,`, optional): Specifies the type of embedding task.&#x20;
+  * Acceptable values are `"query"` (default) for text queries or `"image"` for images.&#x20;
+
+#### Returns
+
+* `EmbeddingsOut`: An object containing the generated embeddings, along with information about the model and usage data.
+
+#### Exceptions
+
+* `ValueError`: Raised if an invalid task type is provided (i.e., not `"query"` or `"image"`) or if the input data is improperly formatted.
+
+#### Example
+
+```python
+# Create embeddings for a text query
+text_embeddings = client.create_embedding(
+  input_data="What is artificial intelligence?", 
+  task="query")
+
+# Create embeddings for a list of image paths
+image_paths = 
+image_embeddings = client.create_embedding(
+  input_data=["image1.jpg", "image2.jpg"], 
+  task="image")
 ```
 
 </details>
@@ -143,89 +226,6 @@ results = client.search(
       "lookup": "contains"
     }
 )
-```
-
-</details>
-
-<details>
-
-<summary><code>upsert:</code> Adds or updates a document.</summary>
-
-This operation also supports adding metadata and providing document content through a URL, a base64-encoded string, or a file path.
-
-#### **Parameters**
-
-* `name` (`str`): The name of the document to be added or updated. This value cannot be null.
-* `metadata` (`Dict[str, Any]`, optional): Additional metadata for the document, such as tags or descriptive information.
-* `collection_name` (`str`, optional): The collection to add the document to. Defaults to `"default collection"`.
-* `document_url` (`str`, optional): The URL of the document if it’s available online.
-* `document_base64` (`str`, optional): The document content encoded in base64.
-* `document_path` (`str`, optional): The file path to the document, which will be read and converted to base64.
-* `wait` (`bool`, optional): If `True`, the method will be synchronous, which mean it will wait for the document processing to complete before returning, making . The default for this value is `False`, making asynchronous the default behavior .&#x20;
-
-#### Returns
-
-* `DocumentOut`: An object containing details of the created or updated document. This is returned for synchronous processing
-* `GenericMessage`: A message object returned if the document is accepted for processing .This is returned for asynchronous processing
-
-#### Exceptions
-
-* `ValueError`: Raised if no valid document source (URL, base64, or file path) is provided, or if there is an issue with the file path.
-* `FileNotFoundError`: Raised if the specified file path does not exist.
-* `PermissionError`: Raised if there is no read permission for the specified file.
-
-#### Example
-
-```python
-# This code synchronously adds/updates an "AI Research Paper" document  in the "AI_Papers" collection
-document = client.upsert_document(
-    name="AI_Research_Paper",
-    metadata={
-        "category": "Machine Learning",
-        "year": "2024",
-        "author": "Dr. AI Researcher"
-    },
-    collection_name="AI_Papers",
-    document_path="/path/to/AI_Research_Paper.pdf",
-    wait=True
-)
-```
-
-</details>
-
-<details>
-
-<summary><code>create_embedding</code>: Generates embeddings on the processed images or text</summary>
-
-Embeddings are vector representations of the data. This method can generate vectors on either image data, or on a text query. After generation, these vectors comparison is processed to generate query result.
-
-#### Parameters
-
-* `input_data` (`str`, `List[str]`): A single string or a list of strings representing the data for which embeddings need to be generated. This could be text (for a query) or paths to image files.
-* `task` (`str,`, optional): Specifies the type of embedding task.&#x20;
-  * Acceptable values are `"query"` (default) for text queries or `"image"` for images.&#x20;
-
-#### Returns
-
-* `EmbeddingsOut`: An object containing the generated embeddings, along with information about the model and usage data.
-
-#### Exceptions
-
-* `ValueError`: Raised if an invalid task type is provided (i.e., not `"query"` or `"image"`) or if the input data is improperly formatted.
-
-#### Example
-
-```python
-# Create embeddings for a text query
-text_embeddings = client.create_embedding(
-  input_data="What is artificial intelligence?", 
-  task="query")
-
-# Create embeddings for a list of image paths
-image_paths = 
-image_embeddings = client.create_embedding(
-  input_data=["image1.jpg", "image2.jpg"], 
-  task="image")
 ```
 
 </details>
@@ -479,36 +479,9 @@ client.delete_document(
 
 <details>
 
-<summary><code>file_to_base64</code>: Converts file content to a base64-encoded string</summary>
-
-This method is useful to update a document's content - if the document is short or has only 1 page - by first converting the file content into a base64 string, then submitted this string as a parameter.&#x20;
-
-#### **Parameters**
-
-* `file_path` (`str`): The path to the file you want to convert.
-
-#### Returns
-
-* `str`: A base64-encoded string representing the file's content
-
-#### Exceptions
-
-* `Exception`: Raised if there’s an error during the file reading or encoding process.
-
-#### Example
-
-```python
-# Converts the contents of document.pdf to a base64 string.
-base64_string = client.file_to_base64("/path/to/document.pdf")
-```
-
-</details>
-
-<details>
-
 <summary><code>file_to_imgbase64:</code>Convert a file into a list of base64 strings, each represents a page from the document</summary>
 
-This method is useful to update a document's content if the document has multiple pages
+This method is useful to convert a document's content into clean pages of base64 images. For example, you can send a test.pdf with 50 pages, and you will get back 50 images of the same pdf.
 
 #### **Parameters**
 
@@ -527,6 +500,33 @@ This method is useful to update a document's content if the document has multipl
 ```python
 # Converts the contents of multi_page_document.pdf to a list of base64 string
 base64_images = client.file_to_imgbase64("/path/to/multi_page_document.pdf")
+```
+
+</details>
+
+<details>
+
+<summary><code>file_to_base64</code>: Converts file content to a base64-encoded string</summary>
+
+This method is useful to update a document's content - it converting the file content into a base64 string, and returns that. This is useful if you have documents where you prefer to send us a base64 instead of a url (if the URL is protected via authentication or anti-scrapping measures) or a local path.
+
+#### **Parameters**
+
+* `file_path` (`str`): The path to the file you want to convert.
+
+#### Returns
+
+* `str`: A base64-encoded string representing the file's content
+
+#### Exceptions
+
+* `Exception`: Raised if there’s an error during the file reading or encoding process.
+
+#### Example
+
+```python
+# Converts the contents of document.pdf to a base64 string.
+base64_string = client.file_to_base64("/path/to/document.pdf")
 ```
 
 </details>
