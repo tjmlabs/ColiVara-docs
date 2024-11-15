@@ -21,10 +21,4 @@ title: Untitled
   * `value`: The value(s) the key(s) should match; could be a string, integer, float, or boolean.
   * `lookup`: Specifies how to match the filter criteria, with options like `"key_lookup"`, `"contains"`, `"contained_by"`, `"has_key"`, `"has_keys"`, or `"has_any_keys"`.
 {% endtab %}
-
-{% tab title="Untitled" %}
-```
-afasd
-```
-{% endtab %}
 {% endtabs %}
