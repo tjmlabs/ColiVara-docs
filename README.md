@@ -40,7 +40,7 @@ It is a web-first implementation of the [ColPali paper](https://arxiv.org/abs/24
 ColiVara is the **Leading Real-World tool for Practical Solutions and Efficiency in Retrieval-Augmented Generation Technology.** We significantly outperfomed currently in-use methods for document parsing and processing.&#x20;
 {% endhint %}
 
-Our detailed **Benchmark Performance  Evaluation** have illustrated Colivara's superiority across diverse benchmarks. Metrics like **NDCG@5** score(Normalized Discounted Cumulative Gain at rank 5) **Latency** were recorded for a comprehensive analysis.
+Our detailed [**Benchmark Performance  Evaluation**](https://app.gitbook.com/o/DHjMRQs4Vfjvi2m062WT/s/r0RGXIvkomMWAuxgus2N/~/changes/31/getting-started/about/colivara-detailed-evaluation-result) have illustrated Colivara's superiority across diverse benchmarks. Metrics like **NDCG@5** score(Normalized Discounted Cumulative Gain at rank 5) **Latency** were recorded for a comprehensive analysis.
 
 | Benchmark               | Colivara Score | Avg Latency (s) (lower is better) | Num Docs |
 | ----------------------- | -------------- | --------------------------------- | -------- |
