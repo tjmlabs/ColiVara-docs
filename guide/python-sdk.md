@@ -182,7 +182,6 @@ text_embeddings = client.create_embedding(
   task="query")
 
 # Create embeddings for a list of image paths
-image_paths = 
 image_embeddings = client.create_embedding(
   input_data=["image1.jpg", "image2.jpg"], 
   task="image")
@@ -382,9 +381,7 @@ document = client.get_document(
 * `collection_name` (`str`, optional): The name of the collection to fetch documents from. Defaults to `"default collection"`.&#x20;
   * Use `"all"` to fetch documents from all collections.
 
-<!---->
-
-* `expand` (`str`, optional): if the value is `"pages"`,the method will include all the documents’ pages.
+- `expand` (`str`, optional): if the value is `"pages"`,the method will include all the documents’ pages.
 
 #### Returns
 

@@ -37,7 +37,7 @@ uv pip compile builder/requirements.in -o builder/requirements.txt
 from colpali_engine.models import ColQwen2, ColQwen2Processor
 import torch
 
-model_name = "vidore/colqwen2-v0.1"
+model_name = "vidore/colqwen2-v1.0"
 if torch.cuda.is_available():
     device_map = "cuda"
 elif torch.backends.mps.is_available():

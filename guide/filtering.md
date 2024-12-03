@@ -12,8 +12,8 @@ icon: filters
 
 Queries running on document can be filtered by:
 
-* **Direct Matching (**[**`key_lookup`**](filtering.md#id-1.-key\_lookup)**,** [**`has_key`**](filtering.md#id-4.-has\_key)**,** [**`has_keys`**](filtering.md#id-5.-has\_keys)**,** [**`has_any_keys`**](filtering.md#id-6.-has\_any\_keys)**)**: Allows for exact matches, making it ideal for queries where the exact value matters (e.g., retrieving specific medical data where exact metrics are critical).
-* **Partial Containment (**[**`contains`**](filtering.md#id-2.-contains)**,** [**`contained_by`**](filtering.md#id-3.-contained\_by)**)**: These enable partial matches, so if a user asks for a general topic (like "budget plans"), the model can pull relevant documents even if they do not perfectly match but contain related content.
+* **Direct Matching (**[**`key_lookup`**](filtering.md#id-1.-key_lookup)**,** [**`has_key`**](filtering.md#id-4.-has_key)**,** [**`has_keys`**](filtering.md#id-5.-has_keys)**,** [**`has_any_keys`**](filtering.md#id-6.-has_any_keys)**)**: Allows for exact matches, making it ideal for queries where the exact value matters (e.g., retrieving specific  data where exact metrics are critical).
+* **Partial Containment (**[**`contains`**](filtering.md#id-2.-contains)**,** [**`contained_by`**](filtering.md#id-3.-contained_by)**)**: These enable partial matches, so if a user asks for a general topic (like "budget plans"), the model can pull relevant documents even if they do not perfectly match but contain related content.
 
 Advanced filters can be used on metadata from a  single document, or from the entire collection
 
@@ -77,7 +77,7 @@ search_results = rag_client.search(
     # Find documents where tags include the substring "science"
     query_filter = {
         "lookup": "contains",
-        "on": "collection", 
+        "on": "document", 
         "key": "tag", 
         "value": "science", 
     }
@@ -94,7 +94,7 @@ search_results = rag_client.search(
 *   **Example Usage**:
 
     ```python
-    # Find documents where keywords are contained within "machine learning research"
+    # Find collections where keywords are contained within "machine learning research"
     query_filter = {
         "lookup": "contain_by",
         "on": "collection", 
@@ -120,7 +120,7 @@ search_results = rag_client.search(
     # Retrieve documents where "publication_year" field exists
     query_filter = {
         "lookup": "has_key",
-        "on": "collection", 
+        "on": "document", 
         "key": "publication_year", 
     }
     ```
@@ -139,7 +139,7 @@ search_results = rag_client.search(
     # Retrieve documents with both "author" and "date" fields
     query_filter = {
         "lookup": "has_key",
-        "on": "collection", 
+        "on": "document", 
         "key": ["author", "date"], 
     }
     ```
@@ -158,7 +158,7 @@ search_results = rag_client.search(
     # Retrieve documents with either "author" or "date" fields
     query_filter = {
         "lookup": "has_any_keys",
-        "on": "collection", 
+        "on": "document", 
         "key": ["author", "date"], 
     }
     ```

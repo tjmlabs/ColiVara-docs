@@ -24,7 +24,7 @@ pip install colivara-py
 
 ### Index a document
 
-Colivara accepts a file url, or base64 encoded file, or a file path. We support over 100 file formats including PDF, DOCX, PPTX, and more. We will also automatically take a screenshot of URLs (webpages) and index them.
+Colivara accepts **a file url, or base64 encoded file, or a file path**. We support over 100 file formats including PDF, DOCX, PPTX, and more. We will also automatically take a screenshot of URLs (webpages) and index them.
 
 ```python
 import os
@@ -53,3 +53,40 @@ You can filter by collection name, collection metadata, and document metadata. Y
 results = rag_client.search(query="What is the role of self-attention in transformers?")
 print(results) # top 3 pages with the most relevant information
 ```
+
+### FAQ
+
+<details>
+
+<summary>Do I need a vector database?</summary>
+
+No - ColiVara uses Postgres and pgVector to store vectors for you. You DO NOT need to generate, save, or manage embeddings in anyway.
+
+</details>
+
+<details>
+
+<summary>Do you convert the documents to markdown/text?</summary>
+
+No - ColiVara treats everything as an image, and uses vision models. There are no parsing, chunking, or OCR involved. This method outperforms chunking, and OCR for both text-based documents and visual documents.
+
+</details>
+
+<details>
+
+<summary>How does non-pdf documents or web pages work?</summary>
+
+We run a pipeline to convert them to images, and perform our normal image-based retrieval. This all happen for you under the hood, and you get the top-k pages when performing retrieval.
+
+</details>
+
+<details>
+
+<summary>Can I use my vector database? </summary>
+
+Yes - we have an embedding endpoint that only generates embeddings without saving or doing anything else. You can store these embeddings at your end. Keep in mind that we use late-interaction and multi-vectors, many vector databases do not support this yet.
+
+</details>
+
+
+

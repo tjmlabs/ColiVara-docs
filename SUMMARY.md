@@ -6,7 +6,7 @@
 
 * [Quickstart](getting-started/quickstart.md)
 * [About](getting-started/about/README.md)
-  * [ColPali Model](getting-started/about/colpali-model.md)
+  * [ColPali Architecture](getting-started/about/colpali-architecture.md)
   * [ColiVara Benchmark Evaluation](getting-started/about/colivara-benchmark-evaluation.md)
 * [Self-hosting](getting-started/self-hosting.md)
 

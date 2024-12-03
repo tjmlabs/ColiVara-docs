@@ -1,6 +1,6 @@
-# ColPali Model
+# ColPali Architecture
 
-Traditional document parsing techniques rely heavily on extracting plain texts, at the cost of overlooking graphical elements. However, complex documents such as technical papers and presentations provide much of their context visual cues such as such as tables, images, charts, and the layout structure. As such, visual context is vital to extract, interpret, and prioritize information in order to generate contexually accurate response.&#x20;
+Traditional document parsing techniques rely heavily on extracting plain texts, at the cost of overlooking graphical elements. However, complex documents such as technical papers and presentations provide much of their context visual cues such as such as tables, images, charts, and the layout structure. As such, visual context is vital to extract, interpret, and prioritize information in order to generate contextually accurate response.&#x20;
 
 In short, ColPali is an advanced document retrieval model that leverages Vision Language Models to integrate both <mark style="color:purple;">**textual**</mark> and <mark style="color:purple;">**visual**</mark> elements for highly accurate and efficient document search&#x20;
 
@@ -40,7 +40,7 @@ While there have been large improvements in text embedding models, practical exp
 
 <figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
 
-ColPali was built on previous technlogies:
+ColPali was built on previous technologies:
 
 <details>
 

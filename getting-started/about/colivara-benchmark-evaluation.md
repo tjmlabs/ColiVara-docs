@@ -10,11 +10,15 @@ Whether dealing with raw text, OCR-enhanced data, or captioned inputs, Colivara 
 
 Our comparisons are done using the systems’ **NDCG@5** score, which is the standard used by the ViDoRe benchmark. _Normalized Discounted Cumulative Gain at rank 5_ evaluates how a retrieval model delivers relevant results to a query. NDCG gives higher importance to results that are both relevant and appear at the top of the list. It focuses on the quality of the top 5 results, which are usually the most important to users
 
+<figure><img src="../../.gitbook/assets/benchmark_comparison_chart.png" alt=""><figcaption></figcaption></figure>
+
+
+
 ***
 
 ## ViDoRe
 
-We are measuring our data using the <mark style="color:purple;">**ViDoRe Benchmark**</mark>, which was introduced alongside the [**ColPali model**](colpali-model.md). The benchmark serves as a platform to evaluate and compare different retrieval models, highlighting the importance of visual elements in document understanding and retrieval
+We are measuring our data using the <mark style="color:purple;">**ViDoRe Benchmark**</mark>, which was introduced alongside the [**ColPali model**](colpali-architecture.md). The benchmark serves as a platform to evaluate and compare different retrieval models, highlighting the importance of visual elements in document understanding and retrieval
 
 {% hint style="info" %}
 **ViDoRe**, short for Visual Document Retrieval Benchmark, is a comprehensive evaluation framework designed to assess the performance of retrieval systems in matching user queries to relevant document pages. It emphasizes the integration of both textual and visual information, reflecting the multifaceted nature of real-world documents.
