@@ -16,5 +16,7 @@
 * [Data Extraction](guide/markdown.md)
 * [Advanced filtering](guide/filtering.md)
 * [API Reference](guide/api-reference.md)
-* [Python SDK](guide/python-sdk.md)
+* [Python SDK](guide/python-sdk/README.md)
+  * [Webhook](guide/python-sdk/webhook.md)
+* [Webhook upsert etc etc something](guide/webhook-upsert-etc-etc-something.md)
 * [Integrations](guide/integrations.md)
