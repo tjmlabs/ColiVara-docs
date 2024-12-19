@@ -4,11 +4,9 @@ icon: filters
 
 # Advanced filtering
 
-## ColiVara offers different lookup methods to extract highly relevant data
+## You can use ColiVara to filter documents based on their metadata
 
-**ColiVara** combines the power of Colpali RAG model to retrieve admissible contextual information. An LLM of your choice can then be used to generate answers to your query as a structured data (JSON) format. Additionally, **ColiVara** offers built-in _lookup methods_ to improve your query.
-
-**Colivara** offers fine-grained control over data retrieval by implementing various **Query Filters**, which boosts precision in response generation by filtering by document's metadata (or collection's metadata)
+**Colivara** offers fine-grained control over data retrieval by implementing various **Query Filters**, which boosts precision and lowers latency in response generation by filtering by document's metadata (or collection's metadata).
 
 Queries running on document can be filtered by:
 
@@ -25,18 +23,45 @@ This leads to _higher relevance_, as users get nuanced responses tailored to bot
 
 To use Advanced Filtering on your documents or collection, pass in a `query_filter` parameter to the `search` function call.&#x20;
 
+First - add relevant metadata to your documents (or collections) on document insertion.&#x20;
+
+```python
+from colivara_py import ColiVara
+
+rag_client = ColiVara(
+    # this is the default and can be omitted
+    api_key=os.environ.get("COLIVARA_API_KEY"),
+    # this is the default and can be omitted
+    base_url="https://api.colivara.com"
+)
+
+# Upload a document to the default_collection
+document = rag_client.upsert_document(
+    name="sample_document",
+    url="https://example.com/sample.pdf",
+    metadata={"author": "John Doe"},
+    # optional - specify a collection
+    collection_name="user_1_collection", 
+    # optional - wait for the document to index
+    wait=True
+)
+
+```
+
+Then - use pass in a `query_filter` parameter to the `search` function call.&#x20;
+
 ```python
 query_filter = {
     "on": "document", # or collection
     "lookup": "contains", # or any of the supported lookup method
-    "key": "some_key",  
-    "value": "some value"  
+    "key": "auther",  
+    "value": "John Doe"  
 }
 
 search_results = rag_client.search(
     query="my_query",
     query_filter=query_filter,
-    collection_name="my_collection",
+    collection_name="user_1_collection",
     top_k=3
 )
 ```
