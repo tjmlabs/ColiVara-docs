@@ -1,5 +1,6 @@
 ---
 icon: webhook
+hidden: true
 ---
 
 # Webhook upsert etc etc something
