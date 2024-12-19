@@ -77,7 +77,7 @@ The query species which collection to search within, the number of top results t
 * `query` (`str`): The search query string. This value cannot be null or empty.
 * `collection_name` (`str`, optional): The name of the collection to search within. Defaults to `"all"`, which searches across all collections.
 * `top_k` (`int`, optional): Specifies the maximum number of results to return. Defaults to `3`.
-* `query_filter` (`Dict[str, Any]`, optional): An optional filter to narrow down search results. Read more about[ **Advance Filtering**](../filtering.md) options here.&#x20;
+* `query_filter` (`Dict[str, Any]`, optional): An optional filter to narrow down search results. Read more about[ **Advance Filtering**](filtering.md) options here.&#x20;
   * `on` (`str`): Specifies whether the filter applies to `"document"` or `"collection"`.
   * `key` (`str`, `List[str]]`): A single key or a list of keys to match.
   * `value` (`str`, `int`, `float`, `bool`, `List[str, int, float, bool]`): The value(s) to match for the specified key(s).
@@ -122,7 +122,7 @@ This allows you to apply flexible criteria to retrieve specific documents or col
 
 * `query_filter` (`Dict[str, Any]`): A dictionary specifying the filter criteria. The dictionary must contain:
   * `on` (`str`): Specifies the target, either `"document"` or `"collection"`.
-  * `lookup` (`str`): The type of lookup.  Options include `"key_lookup"`, `"contains"`, `"contained_by"`, `"has_key"`, `"has_keys"`, and `"has_any_keys"`.  Read more about[ **Advance Filtering**](../filtering.md) options here.&#x20;
+  * `lookup` (`str`): The type of lookup.  Options include `"key_lookup"`, `"contains"`, `"contained_by"`, `"has_key"`, `"has_keys"`, and `"has_any_keys"`.  Read more about[ **Advance Filtering**](filtering.md) options here.&#x20;
   * `key` (`str` or `List[str]`): The key(s) to filter by.
   * `value` (`str, int, float, bool,` optional): The value(s) the key(s) should match (optional, depending on the filter option used).
 * `expand` (`str`, optional):&#x20;

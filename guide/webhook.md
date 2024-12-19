@@ -4,11 +4,13 @@ icon: fishing-rod
 
 # Webhook
 
-**ColiVara** supports Webhook function for asynchronous document upsertion. If not set up, you will receive an email document upsertion events such as success or failure. You can create and verify the Webhook using our provided SDK, or via the User Interface at [**www.colivara.com**](https://www.colivara.com). Webhooks can be useful to manage downstream even handling.
+**ColiVara** supports Webhookw for asynchronous document upsertion. If not set up, you will receive an email on document upsertion  **failures only**. If setup, you will receive events for success and failure. You can create and verify the Webhook using our provided SDK, or via the User Interface at [**www.colivara.com**](https://www.colivara.com).&#x20;
+
+Webhooks can be useful to manage downstream event handling and knowing when the documents are ready to query. They are especially useful when upserting documents more than 100 pages in length or when waiting for upsertion is not efficient.&#x20;
 
 
 
-## Setting up a webhook via the User Interface
+## Setting up a webhook via the User Interface (Recommended)
 
 {% stepper %}
 {% step %}
@@ -22,19 +24,19 @@ Via [https://colivara.com/accounts/edit-account/](https://colivara.com/accounts/
 
 Make sure that your URL enpoint is _Publicly Available_
 
-<figure><img src="../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
 ### Store your Webhook Secret
 
-<figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 
-## Setting up a web hook via the SDK
+## Setting up a web hook via the SDK (Alternative)
 
-The Python SDK library provides the method to regsiter a webhook URL
+The Python SDK library provides the method to register a webhook URL
 
 **`add_webhook`**&#x20;
 
