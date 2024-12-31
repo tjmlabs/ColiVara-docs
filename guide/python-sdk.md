@@ -1,8 +1,11 @@
 ---
 icon: hand-pointer
+description: >-
+  We have Python and Typescript SDKS that support our API - with convenient
+  methods.
 ---
 
-# Python SDK
+# SDKs
 
 ## Using the SDK
 
@@ -12,10 +15,28 @@ The SDK can be installed:
 pip install colivara_py
 ```
 
-Then imported into your project:
+```bash
+npm install colivara-ts
+```
+
+Then import into your project:
 
 ```python
 from colivara_py import ColiVara
+```
+
+```typescript
+import { ColiVara } from 'colivara-ts';
+```
+
+Lastly - initialize the client.&#x20;
+
+```python
+client = ColiVara(api_key=os.environ.get("COLIVARA_API_KEY"))
+```
+
+```typescript
+const client = new ColiVara('your-api-key');
 ```
 
 ## Essential Methods
@@ -49,6 +70,8 @@ This operation also supports adding metadata and providing document content thro
 
 #### Example
 
+Python
+
 ```python
 # This code synchronously adds/updates an "AI Research Paper" document  in the "AI_Papers" collection
 document = client.upsert_document(
@@ -61,8 +84,31 @@ document = client.upsert_document(
     collection_name="AI_Papers",
     document_path="/path/to/AI_Research_Paper.pdf",
     wait=True
-)
+    )
 ```
+
+Javascript/TypeScript
+
+{% code lineNumbers="true" %}
+```typescript
+# This code synchronously adds/updates an "AI Research Paper" document  in the "AI_Papers" collection
+const document = await client.upsertDocument({
+    name: 'AI_Research_Paper',
+    // optional - add metadata
+    metadata={
+        "category": "Machine Learning",
+        "year": "2024",
+        "author": "Dr. AI Researcher"
+    },
+    // optional - specify a collection
+    collection_name: 'AI_Papers',
+    // You can use a file path, base64 encoded file, or a URL
+    document_path: '/path/to/AI_Research_Paper.pdf',
+    // optional - wait for the document to index. Webhooks are also supported.
+    wait: true
+});
+```
+{% endcode %}
 
 </details>
 
@@ -70,7 +116,7 @@ document = client.upsert_document(
 
 <summary><code>search:</code> Sends a query to the server.</summary>
 
-The query species which collection to search within, the number of top results to return, and optional filters to refine the search. It returns the most relevant results based on the given parameters.
+The query can specifies which collection to search within, the number of top results to return, and optional filters to refine the search. It returns the most relevant results based on the given parameters.
 
 #### **Parameters**
 
@@ -93,13 +139,15 @@ The query species which collection to search within, the number of top results t
 
 #### Example
 
+Python
+
 ```python
 # searches for pages within the "my_collection" collection that contains
-# content related to "Gemini" and are categorized under "AI".
+# content related to "What's is RAG?" and are categorized under "AI".
 # returns 5 tops results
 results = client.search(
-    query="Gemini",
-    collection_name=my_collection,
+    query="What's is RAG?",
+    collection_name="my_collection",
     top_k=5,
     query_filter={
       "on": "document",
@@ -109,6 +157,30 @@ results = client.search(
     }
 )
 ```
+
+JavaScript/TypeScript
+
+{% code lineNumbers="true" %}
+```typescript
+// searches for pages within the "my_collection" collection that contains
+// content related to "What's is RAG?" and are categorized under "AI".
+// returns 5 tops result
+const results = await client.search({
+    query: "What's is RAG?",
+    // optional - specify a collection
+    collection_name: 'my_collection',
+    // default is 3
+    top_k: 5, 
+    // optional - add a filter to limit search
+    query_filter:{
+      "on": "document",
+      "key": "category",
+      "value": "AI",
+      "lookup": "contains"
+    }
+});
+```
+{% endcode %}
 
 </details>
 
@@ -138,6 +210,8 @@ This allows you to apply flexible criteria to retrieve specific documents or col
 
 #### Example
 
+Python
+
 ```python
 # Filters documents with category containing "AI" and 
 # includes document pages in the output data
@@ -146,9 +220,24 @@ results = client.filter(
         "on": "document",
         "key": "category",
         "value": "AI",
-        "lookup": "contains" }, 
+        "lookup": "contains" 
+        }, 
     expand="pages",
 )
+```
+
+Typescript/Javascript
+
+```typescript
+const filterParams= {
+        query_filter: { 
+                on: 'document' as 'collection', 
+                key: 'topic', 
+                value: 'AI',
+                lookup: 'contains' as 'contains'
+                }
+        }
+const result = await client.filter(filterParams);
 ```
 
 </details>
@@ -175,6 +264,8 @@ Embeddings are vector representations of the data. This method can generate vect
 
 #### Example
 
+Python
+
 ```python
 # Create embeddings for a text query
 text_embeddings = client.create_embedding(
@@ -186,6 +277,24 @@ image_embeddings = client.create_embedding(
   input_data=["image1.jpg", "image2.jpg"], 
   task="image")
 ```
+
+Javascript/Typescript
+
+```javascript
+// Create embeddings for text
+const embeddings = await client.createEmbedding({
+    input_data: 'What is artificial intelligence?',
+    task: 'query'
+});
+
+// Create embeddings for images
+const imageEmbeddings = await client.createEmbedding({
+    input_data: ['./path/to/image1.jpg', './path/to/image2.jpg'],
+    task: 'image'
+});
+```
+
+
 
 </details>
 
@@ -210,21 +319,22 @@ image_embeddings = client.create_embedding(
 
 #### Example
 
+Python
+
 ```python
-# searches for pages within the "my_collection" collection that contains
-# content related to "Gemini" and are categorized under "AI".
-# returns 5 tops results
-results = client.search(
-    query="Gemini",
-    collection_name=my_collection,
-    top_k=5,
-    query_filter={
-      "on": "document",
-      "key": "category",
-      "value": "AI",
-      "lookup": "contains"
-    }
+results = client.create_collection(
+   name = 'research',
+    metadata = { topic: 'AI' }
 )
+```
+
+Javascipt/Typescript
+
+```typescript
+const collection = await client.createCollection({
+    name: 'research',
+    metadata: { topic: 'AI' }
+});
 ```
 
 </details>
@@ -249,9 +359,20 @@ results = client.search(
 
 #### Example
 
+Python
+
 ```python
-# retrieves the "AI_Research_Papers" collection
-collection = client.get_collection(collection_name="AI_Research_Papers")
+# retrieves the "research" collection
+collection = client.get_collection(collection_name="research")
+```
+
+Javascript/Typescript
+
+```javascript
+// Get a specific collection
+const collection = await client.getCollection({
+    collection_name: 'research'
+});
 ```
 
 </details>
@@ -272,9 +393,18 @@ collection = client.get_collection(collection_name="AI_Research_Papers")
 
 #### Example
 
+Python
+
 ```python
 # Retrieve the list of all collections
 collections = client.list_collections()
+```
+
+Javascript/Typescript
+
+```typescript
+// List all collections
+const collections = await client.listCollections();
 ```
 
 </details>
@@ -301,6 +431,8 @@ Only the fields provided in the parameters will be updated. Metadata already exi
 
 #### Example
 
+Python
+
 ```python
 # updates the "AI_Projects" collection name to "AI_Research_Projects" and adds more metadata
 updated_collection = client.partial_update_collection(
@@ -309,6 +441,20 @@ updated_collection = client.partial_update_collection(
     metadata={
       "updated_by": "admin", 
       "status": "active"}
+)
+```
+
+Javascript/Typescript
+
+```typescript
+const updatedCollection = client.partialUpdateCollection({
+    collection_name:"AI_Projects",
+    name:"AI_Research_Projects",
+    metadata:{
+      "updated_by": "admin", 
+      "status": "active"
+      }
+  }
 )
 ```
 
@@ -332,9 +478,17 @@ The collection will be deleted from ColiVara server. This action is permanent an
 
 #### Example
 
+Python
+
 ```python
 # Delete the specified collection
-client.delete_collection(collection_name="Obsolete_Collection")
+client.delete_collection(collection_name="obsolete_collection")
+```
+
+Javascript/Typescript
+
+```javascript
+client.deleteCollection({ collection_name: "obsolete_collection" })
 ```
 
 </details>
@@ -361,12 +515,25 @@ client.delete_collection(collection_name="Obsolete_Collection")
 
 #### Example
 
+Python
+
 ```python
 # retrieves a document with its pages included
 document = client.get_document(
-    document_name="Research_Paper",
-    collection_name="AI_Research",
-    expand=["pages"]
+    document_name="research_paper",
+    collection_name="AI_research",
+    expand="pages"
+)
+```
+
+Javascript/Typescript
+
+```typescript
+const document = client.getDocument( { 
+    document_name: "research_paper, 
+    collection_name: "AI_research", 
+    expand: 'pages' 
+    }
 )
 ```
 
@@ -391,11 +558,22 @@ document = client.get_document(
 
 #### Example
 
+Python
+
 ```python
 # Retrieves all documents in the "AI_Research" collection, including pages for each document
 documents = client.list_documents(
-  collection_name="AI_Research", 
+  collection_name="AI_research", 
   expand="pages")
+```
+
+Javascript/Typescript
+
+```typescript
+const documents = client.listDocuments({
+    collection_name="AI_Research", 
+    expand="pages" }
+  )
 ```
 
 </details>
@@ -425,6 +603,8 @@ This method can update either or both the document's content or metadata. Only t
 
 #### Example
 
+Python
+
 ```python
 # Update a document's name from "Research_Paper" to "Updated_Research_Paper"
 # Also updates its metadata, and URL
@@ -437,6 +617,17 @@ updated_document = client.partial_update_document(
     },
     document_url="https://example.com/updated_paper.pdf"
 )
+```
+
+Typescript/Javascript
+
+```typescript
+const updatedDocument = await client.partialUpdateDocument({
+        document_name: "Research_Paper",    
+        name: "Updated_Research_Paper",    
+        metadata: { author: "Dr. AI Researcher", year: "2024"},    
+        document_url: "https://example.com/updated_paper.pdf"
+        });
 ```
 
 </details>
@@ -462,6 +653,8 @@ The document to be deleted can be identified from a specific collection, or from
 
 #### Example
 
+Python
+
 ```python
 # Deletes the "Old_Report" document from the "Archived_Documents" collection
 client.delete_document(
@@ -469,6 +662,14 @@ client.delete_document(
   collection_name="Archived_Documents"
 )
 ```
+
+Typescript/Javascript
+
+{% code overflow="wrap" %}
+```typescript
+client.deleteDocument({ document_name: "Old_Report", collection_name: "Archived_Documents" });
+```
+{% endcode %}
 
 </details>
 
@@ -494,9 +695,18 @@ This method is useful to convert a document's content into clean pages of base64
 
 #### Example
 
+Python
+
 ```python
 # Converts the contents of multi_page_document.pdf to a list of base64 string
 base64_images = client.file_to_imgbase64("/path/to/multi_page_document.pdf")
+```
+
+Typescript/Javascript
+
+```typescript
+// Converts the contents of multi_page_document.pdf to a list of base64 string
+const base64Images = await client.fileToImgbase64("/path/to/multi_page_document.pdf");
 ```
 
 </details>
@@ -521,9 +731,18 @@ This method is useful to update a document's content - it converting the file co
 
 #### Example
 
+Python
+
 ```python
 # Converts the contents of document.pdf to a base64 string.
 base64_string = client.file_to_base64("/path/to/document.pdf")
+```
+
+Javascript/Typescript
+
+```typescript
+// Converts the contents of multi_page_document.pdf to a base64 string
+const base64File = await client.fileToBase64("/path/to/multi_page_document.pdf");
 ```
 
 </details>
