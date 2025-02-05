@@ -19,3 +19,4 @@
 * [SDKs](guide/python-sdk.md)
 * [Webhooks](guide/webhooks.md)
 * [Integrations](guide/integrations.md)
+* [Advanced usage](guide/advanced-usage.md)

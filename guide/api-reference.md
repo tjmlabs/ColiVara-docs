@@ -14,6 +14,10 @@ You can get a token from [here](https://colivara.com) and try out our API.&#x20;
 [https://api.colivara.com/v1/openapi.json](https://api.colivara.com/v1/openapi.json)
 {% endswagger %}
 
+{% swagger src="https://api.colivara.com/v1/openapi.json" path="/v1/search-image/" method="post" %}
+[https://api.colivara.com/v1/openapi.json](https://api.colivara.com/v1/openapi.json)
+{% endswagger %}
+
 {% swagger src="https://api.colivara.com/v1/openapi.json" path="/v1/documents/upsert-document/" method="post" %}
 [https://api.colivara.com/v1/openapi.json](https://api.colivara.com/v1/openapi.json)
 {% endswagger %}
@@ -61,4 +65,3 @@ You can get a token from [here](https://colivara.com) and try out our API.&#x20;
 {% swagger src="https://api.colivara.com/v1/openapi.json" path="/v1/embeddings/" method="post" %}
 [https://api.colivara.com/v1/openapi.json](https://api.colivara.com/v1/openapi.json)
 {% endswagger %}
-
